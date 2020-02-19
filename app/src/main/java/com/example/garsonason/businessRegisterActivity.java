@@ -57,7 +57,7 @@ public class businessRegisterActivity extends AppCompatActivity {
               }
               else
               {
-                 
+
                   Toast.makeText(getApplicationContext(),"hata"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
               }
             }

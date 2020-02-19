@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".customerRegisterActivity"></activity>
+        <activity android:name=".RedirectActivity"></activity>
+        <activity android:name=".customerRegisterActivity" />
         <activity android:name=".businessRegisterActivity" />
         <activity android:name=".registerButtonsActivity" />
         <activity android:name=".loginActivity" />
