@@ -27,7 +27,7 @@
         android:layout_gravity="center"
         />
     <Button
-        android:id="@+id/login"
+        android:id="@+id/login_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Giriş Yap"
@@ -36,7 +36,7 @@
         android:layout_marginTop="90dp"
         />
     <Button
-        android:id="@+id/register"
+        android:id="@+id/register_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kaydol"
@@ -54,7 +54,7 @@
 
 
     <Button
-        android:id="@+id/support"
+        android:id="@+id/support_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Destek/Yardım"
@@ -62,7 +62,7 @@
         android:layout_gravity="right"/>
 
         <Button
-            android:id="@+id/reportBug"
+            android:id="@+id/reportBug_Button"
             android:layout_width="137dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
