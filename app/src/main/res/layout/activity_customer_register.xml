@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="55dp"
-        android:text="Kullanıcı Adı"
+        android:hint="Kullanıcı Adı"
         android:textAlignment="center"
         android:textSize="20dp" />
 
@@ -43,34 +43,39 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="E-Posta"
+        android:hint="E-Posta"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textSize="20dp" />
+
     <EditText
         android:id="@+id/customerRegister_password_Edittext"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Şifre"
+        android:hint="Şifre"
         android:textAlignment="center"
         android:textSize="20dp" />
+
     <EditText
         android:id="@+id/customerRegister_passwordRepeat_Edittext"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Şifre Tekrarı"
+        android:hint="Şifre Tekrarı"
         android:textAlignment="center"
         android:textSize="20dp" />
+
     <EditText
         android:id="@+id/customerRegister_phoneNumber_Edittext"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Telefon Numarası"
+        android:hint="Telefon Numarası"
+        android:inputType="number"
         android:textAlignment="center"
         android:textSize="20dp" />
 
