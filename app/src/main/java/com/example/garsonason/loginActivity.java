@@ -45,6 +45,7 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void login_user(String kullaniciAdi, String kullaniciSifre) {
+
         mAuth.signInWithEmailAndPassword(kullaniciAdi,kullaniciSifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

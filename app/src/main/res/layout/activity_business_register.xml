@@ -35,59 +35,66 @@
 
     <EditText
 
-        android:layout_weight="1"
         android:id="@+id/businessRegister_id_Edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="1"
 
+        android:editable="false"
         android:hint="Kullanıcı Adı"
+        android:inputType="text"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
 
     <EditText
-        android:layout_weight="1"
         android:id="@+id/businessRegister_mail_Edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="1"
 
         android:hint="E-Posta"
         android:inputType="textEmailAddress"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
 
     <EditText
-        android:layout_weight="1"
         android:id="@+id/businessRegister_password_Edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_weight="1"
         android:hint="Şifre"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
 
     <EditText
-        android:layout_weight="1"
         android:id="@+id/businessRegister_passwordRepeat_Edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_weight="1"
         android:hint="Şifre Tekrarı"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
 
     <EditText
-        android:layout_weight="1"
         android:id="@+id/businessRegister_phoneNumber_Edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_weight="1"
         android:hint="Telefon Numarası"
         android:inputType="number"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
 
