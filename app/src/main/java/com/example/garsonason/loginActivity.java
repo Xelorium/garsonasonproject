@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,15 +24,17 @@ public class loginActivity extends AppCompatActivity {
     private EditText userPassword_Edittext;
     private Button userLogin_Button;
     private FirebaseAuth mAuth;
+    private TextView forgotPassword_TextView;
     private ProgressDialog progressDialog1;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         userId_Edittext = (EditText) findViewById(R.id.userId_Edittext);
         userPassword_Edittext = (EditText) findViewById(R.id.userPassword_Edittext);
+        forgotPassword_TextView = (TextView) findViewById(R.id.forgotPassword_Text);
         userLogin_Button = (Button) findViewById(R.id.userLogin_Button);
         progressDialog1= new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
@@ -47,6 +50,14 @@ public class loginActivity extends AppCompatActivity {
                     login_user(kullaniciAdi,kullaniciSifre);
 
                 }
+            }
+        });
+
+        forgotPassword_TextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(loginActivity.this, forgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
 
