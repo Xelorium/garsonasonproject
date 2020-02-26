@@ -3,8 +3,10 @@ package com.example.garsonason;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,8 @@ public class customerRegisterActivity extends AppCompatActivity {
     private EditText customerRegister_passwordRepeat_Edittext;
     private EditText customerRegister_phoneNumber_Edittext;
     private DatabaseReference database_Ref;
+    private ProgressDialog progressDialog1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,15 @@ public class customerRegisterActivity extends AppCompatActivity {
         customerRegister_password_Edittext=(EditText) findViewById(R.id.customerRegister_password_Edittext);
         customerRegister_passwordRepeat_Edittext=(EditText) findViewById(R.id.customerRegister_passwordRepeat_Edittext);
         customerRegister_phoneNumber_Edittext=(EditText) findViewById(R.id.customerRegister_phoneNumber_Edittext);
+        progressDialog1= new ProgressDialog(this);
+
 
         mAuth = FirebaseAuth.getInstance();
         customerRegister_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 String posta = customerRegister_mail_Edittext.getText().toString();
                 String sifre = customerRegister_password_Edittext.getText().toString();
@@ -51,7 +59,22 @@ public class customerRegisterActivity extends AppCompatActivity {
                 String sifreTekrar = customerRegister_passwordRepeat_Edittext.getText().toString();
                 String telNo =customerRegister_phoneNumber_Edittext.getText().toString();
 
-                kayitOl(posta, sifre, kullaniciAdi, telNo);
+                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre)&& !TextUtils.isEmpty(sifreTekrar)&& !TextUtils.isEmpty(telNo)){
+                    if (TextUtils.equals(sifre,sifreTekrar)){
+                        kayitOl(posta, sifre,kullaniciAdi,telNo);
+
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Şifre tekrarını doğru girdiğinizden emin olun.",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Tüm alanları doldurmanız gerekiyor.",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
     }
@@ -62,6 +85,7 @@ public class customerRegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
+
                     String users_Id=mAuth.getCurrentUser().getUid();
                     database_Ref= FirebaseDatabase.getInstance().getReference().child("Musteri_Kullanicilari_Kayit").child(users_Id);
                     HashMap<String, String> musteriKullaniciKayit = new HashMap<>();
@@ -69,11 +93,19 @@ public class customerRegisterActivity extends AppCompatActivity {
                     musteriKullaniciKayit.put("sifre",sifre);
                     musteriKullaniciKayit.put("telNo",telNo);
                     musteriKullaniciKayit.put("ePosta",posta);
+                    progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
+                    progressDialog1.setMessage("Lütfen bekleyin...");
+                    progressDialog1.setCanceledOnTouchOutside(false);
+                    progressDialog1.show();
+
+
+
                     database_Ref.setValue(musteriKullaniciKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Intent kayitTamamlandi = new Intent(customerRegisterActivity.this, loginActivity.class);
+                                progressDialog1.dismiss();
                                 startActivity(kayitTamamlandi);
                             }
                         }

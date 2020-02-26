@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="55dp"
+        android:singleLine="true"
         android:hint="Kullanıcı Adı"
         android:textAlignment="center"
         android:textSize="20dp" />
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:singleLine="true"
         android:hint="Şifre"
         android:inputType="textPassword"
         android:textAlignment="center"

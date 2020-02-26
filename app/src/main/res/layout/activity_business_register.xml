@@ -24,14 +24,14 @@
         android:text="Ayarlar" />
 
     <TextView
-        android:layout_weight="1"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="İşletme Olarak Kaydol:"
+        android:layout_weight="1"
+        android:text="İşletme Olarak Kayıt Ol:"
         android:textAlignment="center"
-        android:textSize="30dp"/>
+        android:textSize="30dp" />
 
     <EditText
 
@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-
         android:hint="E-Posta"
         android:inputType="textEmailAddress"
         android:singleLine="true"

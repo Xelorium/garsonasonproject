@@ -3,8 +3,10 @@ package com.example.garsonason;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,7 @@ public class businessRegisterActivity extends AppCompatActivity {
     private EditText businessRegister_passwordRepeat_Edittext;
     private EditText businessRegister_phoneNumber_Edittext;
     private DatabaseReference database_Ref;
+    private ProgressDialog progressDialog1;
 
 
     @Override
@@ -40,6 +43,7 @@ public class businessRegisterActivity extends AppCompatActivity {
         businessRegister_Button=(Button) findViewById(R.id.businessRegister_Button);
         businessRegister_passwordRepeat_Edittext=(EditText) findViewById(R.id.businessRegister_passwordRepeat_Edittext);
         businessRegister_phoneNumber_Edittext= (EditText) findViewById(R.id.businessRegister_phoneNumber_Edittext);
+        progressDialog1= new ProgressDialog(this);
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -56,16 +60,20 @@ public class businessRegisterActivity extends AppCompatActivity {
              String puan="5";
              String adres="mah sokak levet kadıköy";
 
+                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre)&& !TextUtils.isEmpty(sifreTekrar)&& !TextUtils.isEmpty(telNo)){
+                    if (TextUtils.equals(sifre,sifreTekrar)){
+                        kayitOl(posta, sifre,kullaniciAdi,telNo,puan,adres);
 
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Şifre tekrarını doğru girdiğinizden emin olun.",Toast.LENGTH_SHORT).show();
+                    }
 
+        }
+                else{
+                    Toast.makeText(getApplicationContext(),"Tüm alanları doldurmanız gerekiyor.",Toast.LENGTH_SHORT).show();
+                }
 
-
-
-                kayitOl(posta, sifre,kullaniciAdi,telNo,puan,adres);
-
-
-            }
-        });
 
 
     }
@@ -86,6 +94,10 @@ public class businessRegisterActivity extends AppCompatActivity {
                   isletmeKullaniciKayit.put("ePosta",posta);
                   isletmeKullaniciKayit.put("adres",adres);
                   isletmeKullaniciKayit.put("puan",puan);
+                  progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
+                  progressDialog1.setMessage("Lütfen bekleyin...");
+                  progressDialog1.setCanceledOnTouchOutside(false);
+                  progressDialog1.show();
 
 
                   database_Ref.setValue(isletmeKullaniciKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -93,18 +105,21 @@ public class businessRegisterActivity extends AppCompatActivity {
                       public void onComplete(@NonNull Task<Void> task) {
                           if (task.isSuccessful()){
                               Intent kayitTamamlandi = new Intent(businessRegisterActivity.this, loginActivity.class);
+                              progressDialog1.dismiss();
                               startActivity(kayitTamamlandi);
-                          }
-                          else
-                          {
 
-                              Toast.makeText(getApplicationContext(),"hata"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                           }
+
                       }
                   });
 
 
 
+              }
+              else
+              {
+
+                  Toast.makeText(getApplicationContext(),"hata"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
               }
 
             }
@@ -112,5 +127,7 @@ public class businessRegisterActivity extends AppCompatActivity {
     }
 
 
-}
+});
 
+    }
+}

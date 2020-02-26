@@ -3,6 +3,7 @@ package com.example.garsonason;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,8 @@ public class loginActivity extends AppCompatActivity {
     private EditText userPassword_Edittext;
     private Button userLogin_Button;
     private FirebaseAuth mAuth;
+    private ProgressDialog progressDialog1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,19 @@ public class loginActivity extends AppCompatActivity {
         userId_Edittext = (EditText) findViewById(R.id.userId_Edittext);
         userPassword_Edittext = (EditText) findViewById(R.id.userPassword_Edittext);
         userLogin_Button = (Button) findViewById(R.id.userLogin_Button);
+        progressDialog1= new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
+
         userLogin_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String kullaniciAdi = userId_Edittext.getText().toString();
                 String kullaniciSifre = userPassword_Edittext.getText().toString();
                 if(!TextUtils.isEmpty(kullaniciAdi)||!TextUtils.isEmpty(kullaniciSifre)){
+
                     login_user(kullaniciAdi,kullaniciSifre);
+
                 }
             }
         });
@@ -50,11 +58,16 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    progressDialog1.setTitle("Giriş Yapılıyor");
+                    progressDialog1.setMessage("Lütfen bekleyin...");
+                    progressDialog1.setCanceledOnTouchOutside(false);
+                    progressDialog1.show();
                     Intent intent = new Intent(loginActivity.this, RedirectActivity.class);
+                    progressDialog1.dismiss();
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Eksik veya yanlış girdi."+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Eksik veya yanlış girdi. "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });
