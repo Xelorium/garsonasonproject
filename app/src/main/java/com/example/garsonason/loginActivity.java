@@ -73,7 +73,7 @@ public class loginActivity extends AppCompatActivity {
                     progressDialog1.setMessage("Lütfen bekleyin...");
                     progressDialog1.setCanceledOnTouchOutside(false);
                     progressDialog1.show();
-                    Intent intent = new Intent(loginActivity.this, RedirectActivity.class);
+                    Intent intent = new Intent(loginActivity.this, businessMainActivity.class);
                     progressDialog1.dismiss();
                     startActivity(intent);
                 }

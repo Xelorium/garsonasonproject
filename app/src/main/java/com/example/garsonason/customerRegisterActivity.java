@@ -93,6 +93,7 @@ public class customerRegisterActivity extends AppCompatActivity {
                     musteriKullaniciKayit.put("sifre",sifre);
                     musteriKullaniciKayit.put("telNo",telNo);
                     musteriKullaniciKayit.put("ePosta",posta);
+
                     progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
                     progressDialog1.setMessage("Lütfen bekleyin...");
                     progressDialog1.setCanceledOnTouchOutside(false);

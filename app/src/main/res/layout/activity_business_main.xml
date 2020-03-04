@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="right"
+    android:orientation="vertical"
+    tools:context=".loginActivity">
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="35dp"
+        android:text="Ayarlar" />
+
+
+
+    <Button
+        android:id="@+id/businessMain_addProduct_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:text="Ürün Ekle"
+        android:textSize="25dp" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/businessMain_Frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+
+
+        <Button
+            android:id="@+id/support_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="0.03"
+            android:text="Destek/Yardım"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/reportBug_Button"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Hata Bildir"
+            android:layout_weight="0.03"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+</LinearLayout>
