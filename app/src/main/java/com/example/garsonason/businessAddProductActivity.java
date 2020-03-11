@@ -84,8 +84,8 @@ private DatabaseReference database_Ref;
     }
     private void urunEkle(String urunAdi, String urunTipi, String urunFiyati, String date){
 
-        String items_Id=mAuth.getUid();
-        database_Ref= FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi").child(items_Id);
+
+        database_Ref= FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi");
         HashMap<String, String> isletmeUrunKayit = new HashMap<>();
         isletmeUrunKayit.put("urunAdi",urunAdi);
         isletmeUrunKayit.put("urunTipi",urunTipi);
@@ -95,9 +95,10 @@ private DatabaseReference database_Ref;
         database_Ref.setValue(isletmeUrunKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+if (task.isSuccessful()){
 
-                Intent intent = new Intent(businessMainActivity.this, businessAddProductActivity.class);
-                startActivity(intent);
+}
+
 
             }
         });

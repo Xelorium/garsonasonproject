@@ -1,24 +1,16 @@
 package com.example.garsonason;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class businessMainActivity extends AppCompatActivity {
 
@@ -27,6 +19,7 @@ public class businessMainActivity extends AppCompatActivity {
     private EditText businessAddProduct_Type_Edittext;
     private EditText businessAddProduct_Cost_Edittext;
     private Button businessAddProduct_Add_Button;
+    private Button listeleButton;
     private FirebaseAuth mAuth;
     private DatabaseReference database_Ref;
 
@@ -38,8 +31,17 @@ public class businessMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_business_main);
 
         businessMain_addProduct_Button = (Button) findViewById(R.id.businessMain_addProduct_Button);
+        listeleButton = (Button) findViewById(R.id.intent_Button);
 
         mAuth = FirebaseAuth.getInstance();
+
+        listeleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(businessMainActivity.this, listeCek.class);
+                startActivity(intent);
+            }
+        });
 
 
         businessMain_addProduct_Button.setOnClickListener(new View.OnClickListener() {
