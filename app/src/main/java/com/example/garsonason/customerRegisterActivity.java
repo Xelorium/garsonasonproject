@@ -87,12 +87,13 @@ public class customerRegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
 
                     String users_Id=mAuth.getCurrentUser().getUid();
-                    database_Ref= FirebaseDatabase.getInstance().getReference().child("Musteri_Kullanicilari_Kayit").child(users_Id);
+                    database_Ref= FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
                     HashMap<String, String> musteriKullaniciKayit = new HashMap<>();
                     musteriKullaniciKayit.put("kullaniciAdi",kullaniciAdi);
                     musteriKullaniciKayit.put("sifre",sifre);
                     musteriKullaniciKayit.put("telNo",telNo);
                     musteriKullaniciKayit.put("ePosta",posta);
+                    musteriKullaniciKayit.put("kullaniciTuru", "musteri");
 
                     progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
                     progressDialog1.setMessage("Lütfen bekleyin...");

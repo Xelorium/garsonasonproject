@@ -37,6 +37,7 @@ private EditText businessAddProduct_Cost_Edittext;
 private EditText businessAddProduct_Type_Edittext;
 private EditText businessAddProduct_Name_Edittext;
 private DatabaseReference database_Ref;
+private Toast toast;
 
 
 
@@ -85,7 +86,7 @@ private DatabaseReference database_Ref;
     private void urunEkle(String urunAdi, String urunTipi, String urunFiyati, String date){
 
 
-        database_Ref= FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi");
+        database_Ref= FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi").push();
         HashMap<String, String> isletmeUrunKayit = new HashMap<>();
         isletmeUrunKayit.put("urunAdi",urunAdi);
         isletmeUrunKayit.put("urunTipi",urunTipi);
@@ -96,7 +97,10 @@ private DatabaseReference database_Ref;
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 if (task.isSuccessful()){
-
+Toast.makeText(getActivity(), "Ürün başarıyla kaydedilmiştir. ", Toast.LENGTH_SHORT).show();
+}
+else {
+    Toast.makeText(getActivity(), "Bir sorun oluştu! Lütfen sonra tekrar deneyin.", Toast.LENGTH_LONG).show();
 }
 
 

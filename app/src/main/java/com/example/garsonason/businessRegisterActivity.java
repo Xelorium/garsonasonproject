@@ -57,8 +57,8 @@ public class businessRegisterActivity extends AppCompatActivity {
              String kullaniciAdi = businessRegister_id_Edittext.getText().toString();
              String sifreTekrar = businessRegister_passwordRepeat_Edittext.getText().toString();
              String telNo = businessRegister_phoneNumber_Edittext.getText().toString();
-             String puan="5";
-             String adres="mah sokak levet kadıköy";
+             String puan="0";
+             String adres="Not given";
 
                 if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre)&& !TextUtils.isEmpty(sifreTekrar)&& !TextUtils.isEmpty(telNo)){
                     if (TextUtils.equals(sifre,sifreTekrar)){
@@ -86,7 +86,7 @@ public class businessRegisterActivity extends AppCompatActivity {
 
               if (task.isSuccessful()){
                   String users_Id=mAuth.getCurrentUser().getUid();
-                  database_Ref= FirebaseDatabase.getInstance().getReference().child("Isletme_Kullanicilari_Kayit").child(users_Id);
+                  database_Ref= FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
                   HashMap<String, String> isletmeKullaniciKayit = new HashMap<>();
                   isletmeKullaniciKayit.put("kullaniciAdi",kullaniciAdi);
                   isletmeKullaniciKayit.put("sifre",sifre);
@@ -94,6 +94,8 @@ public class businessRegisterActivity extends AppCompatActivity {
                   isletmeKullaniciKayit.put("ePosta",posta);
                   isletmeKullaniciKayit.put("adres",adres);
                   isletmeKullaniciKayit.put("puan",puan);
+                  isletmeKullaniciKayit.put("kullaniciTuru", "isletme");
+
                   progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
                   progressDialog1.setMessage("Lütfen bekleyin...");
                   progressDialog1.setCanceledOnTouchOutside(false);

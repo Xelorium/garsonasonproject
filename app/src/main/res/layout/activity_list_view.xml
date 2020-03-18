@@ -9,7 +9,7 @@
 <ListView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/urunListele_ListView"/>
+    android:id="@+id/urunleriListele_ListView"/>
 
 
 </LinearLayout>

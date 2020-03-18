@@ -8,7 +8,7 @@ public class customerProductAdapter {
     public customerProductAdapter(){
 
     }
-    public  customerProductAdapter(String date, String urunAdi, String urunFiyat, String urunTipi){
+    public customerProductAdapter(String date, String urunAdi, String urunFiyat, String urunTipi){
         this.date=date;
         this.urunAdi=urunAdi;
         this.urunFiyat=urunFiyat;

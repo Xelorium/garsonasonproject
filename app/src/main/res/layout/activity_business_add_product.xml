@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:capitalize="words"
         android:hint="Ürün Adı"
         android:inputType="text"
         android:singleLine="true"
@@ -36,8 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:capitalize="words"
         android:hint="Türü"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapWords"
         android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />
@@ -50,6 +52,7 @@
         android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:hint="Fiyat"
+        android:inputType="number"
         android:singleLine="true"
         android:textAlignment="center"
         android:textSize="20dp" />

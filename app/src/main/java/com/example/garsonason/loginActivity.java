@@ -17,6 +17,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.EventListener;
 
 public class loginActivity extends AppCompatActivity {
 
@@ -69,13 +76,46 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    progressDialog1.setTitle("Giriş Yapılıyor");
-                    progressDialog1.setMessage("Lütfen bekleyin...");
-                    progressDialog1.setCanceledOnTouchOutside(false);
-                    progressDialog1.show();
-                    Intent intent = new Intent(loginActivity.this, businessMainActivity.class);
-                    progressDialog1.dismiss();
-                    startActivity(intent);
+                    String id= mAuth.getCurrentUser().getUid();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                    DatabaseReference myRef2 = database.getReference().child("tbl_kullanicilar").child(id);
+                    myRef2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            keepData model= new keepData();
+                            model=dataSnapshot.getValue(model.getClass());
+
+                            if (model.getKullaniciTuru().equals("isletme")){
+
+                                progressDialog1.setTitle("Giriş Yapılıyor");
+                                progressDialog1.setMessage("Lütfen bekleyin...");
+                                progressDialog1.setCanceledOnTouchOutside(false);
+                                progressDialog1.show();
+                                Intent intent = new Intent(loginActivity.this, businessMainActivity.class);
+                                progressDialog1.dismiss();
+                                startActivity(intent);
+
+                            }
+                            else if (model.getKullaniciTuru().equals("musteri")){
+
+                                progressDialog1.setTitle("Giriş Yapılıyor");
+                                progressDialog1.setMessage("Lütfen bekleyin...");
+                                progressDialog1.setCanceledOnTouchOutside(false);
+                                progressDialog1.show();
+                                Intent intent2 = new Intent(loginActivity.this, forgotPasswordActivity.class);
+                                progressDialog1.dismiss();
+                                startActivity(intent2);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Eksik veya yanlış girdi. "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
