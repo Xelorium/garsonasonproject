@@ -24,14 +24,13 @@ public class businessMainActivity extends AppCompatActivity {
     private DatabaseReference database_Ref;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_main);
 
-        businessMain_addProduct_Button = (Button) findViewById(R.id.businessMain_addProduct_Button);
-        listeleButton = (Button) findViewById(R.id.intent_Button);
+        businessMain_addProduct_Button = findViewById(R.id.businessMain_addProduct_Button);
+        listeleButton = findViewById(R.id.intent_Button);
 
         mAuth = FirebaseAuth.getInstance();
 

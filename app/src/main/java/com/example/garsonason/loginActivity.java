@@ -36,15 +36,15 @@ public class loginActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        userId_Edittext = (EditText) findViewById(R.id.userId_Edittext);
-        userPassword_Edittext = (EditText) findViewById(R.id.userPassword_Edittext);
-        forgotPassword_TextView = (TextView) findViewById(R.id.forgotPassword_Text);
-        userLogin_Button = (Button) findViewById(R.id.userLogin_Button);
-        progressDialog1= new ProgressDialog(this);
-        mAuth=FirebaseAuth.getInstance();
+        userId_Edittext = findViewById(R.id.userId_Edittext);
+        userPassword_Edittext = findViewById(R.id.userPassword_Edittext);
+        forgotPassword_TextView = findViewById(R.id.forgotPassword_Text);
+        userLogin_Button = findViewById(R.id.userLogin_Button);
+        progressDialog1 = new ProgressDialog(this);
+        mAuth = FirebaseAuth.getInstance();
 
         userLogin_Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +52,13 @@ public class loginActivity extends AppCompatActivity {
 
                 String kullaniciAdi = userId_Edittext.getText().toString();
                 String kullaniciSifre = userPassword_Edittext.getText().toString();
-                if(!TextUtils.isEmpty(kullaniciAdi)||!TextUtils.isEmpty(kullaniciSifre)){
+                if (!TextUtils.isEmpty(kullaniciAdi) && !TextUtils.isEmpty(kullaniciSifre)) {
 
-                    login_user(kullaniciAdi,kullaniciSifre);
+                    login_user(kullaniciAdi, kullaniciSifre);
 
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Eksik veya yanlış girdi. ", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -72,21 +75,21 @@ public class loginActivity extends AppCompatActivity {
 
     private void login_user(String kullaniciAdi, String kullaniciSifre) {
 
-        mAuth.signInWithEmailAndPassword(kullaniciAdi,kullaniciSifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(kullaniciAdi, kullaniciSifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    String id= mAuth.getCurrentUser().getUid();
+                if (task.isSuccessful()) {
+                    String id = mAuth.getCurrentUser().getUid();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     DatabaseReference myRef2 = database.getReference().child("tbl_kullanicilar").child(id);
                     myRef2.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            keepData model= new keepData();
-                            model=dataSnapshot.getValue(model.getClass());
+                            keepData model = new keepData();
+                            model = dataSnapshot.getValue(model.getClass());
 
-                            if (model.getKullaniciTuru().equals("isletme")){
+                            if (model.getKullaniciTuru().equals("isletme")) {
 
                                 progressDialog1.setTitle("Giriş Yapılıyor");
                                 progressDialog1.setMessage("Lütfen bekleyin...");
@@ -96,17 +99,17 @@ public class loginActivity extends AppCompatActivity {
                                 progressDialog1.dismiss();
                                 startActivity(intent);
 
-                            }
-                            else if (model.getKullaniciTuru().equals("musteri")){
+                            } else if (model.getKullaniciTuru().equals("musteri")) {
 
                                 progressDialog1.setTitle("Giriş Yapılıyor");
                                 progressDialog1.setMessage("Lütfen bekleyin...");
                                 progressDialog1.setCanceledOnTouchOutside(false);
                                 progressDialog1.show();
-                                Intent intent2 = new Intent(loginActivity.this, forgotPasswordActivity.class);
+                                Intent intent2 = new Intent(loginActivity.this, customerMainActivity.class);
                                 progressDialog1.dismiss();
                                 startActivity(intent2);
                             }
+
 
                         }
 
@@ -117,8 +120,9 @@ public class loginActivity extends AppCompatActivity {
                     });
 
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Eksik veya yanlış girdi. "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                else {
+                    Toast.makeText(getApplicationContext(), "Eksik veya yanlış girdi. " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

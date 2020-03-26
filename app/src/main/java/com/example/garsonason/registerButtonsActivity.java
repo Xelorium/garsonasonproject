@@ -19,7 +19,7 @@ public class registerButtonsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_buttons);
 
-        musteriKaydiButonu = (Button) findViewById(R.id.customerRegisterEntry_Button);
+        musteriKaydiButonu = findViewById(R.id.customerRegisterEntry_Button);
         musteriKaydiButonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +27,7 @@ public class registerButtonsActivity extends AppCompatActivity {
             }
         });
 
-        isletmeKaydiButonu = (Button) findViewById(R.id.businessRegisterEntry_Button);
+        isletmeKaydiButonu = findViewById(R.id.businessRegisterEntry_Button);
         isletmeKaydiButonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,12 +36,12 @@ public class registerButtonsActivity extends AppCompatActivity {
         });
     }
 
-    public void musteriYonlendir(){
+    public void musteriYonlendir() {
         Intent musteriKayitEkraniYonlendir = new Intent(this, customerRegisterActivity.class);
         startActivity(musteriKayitEkraniYonlendir);
     }
 
-    public void isletmeYonlendir(){
+    public void isletmeYonlendir() {
         Intent isletmeKayitEkaniYonlendir = new Intent(this, businessRegisterActivity.class);
         startActivity(isletmeKayitEkaniYonlendir);
     }

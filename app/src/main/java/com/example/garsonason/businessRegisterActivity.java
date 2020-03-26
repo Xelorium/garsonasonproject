@@ -37,99 +37,93 @@ public class businessRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_register);
-        businessRegister_id_Edittext=(EditText) findViewById(R.id.businessRegister_id_Edittext);
-        businessRegister_mail_Edittext=(EditText) findViewById(R.id.businessRegister_mail_Edittext);
-        businessRegister_password_Edittext=(EditText) findViewById(R.id.businessRegister_password_Edittext);
-        businessRegister_Button=(Button) findViewById(R.id.businessRegister_Button);
-        businessRegister_passwordRepeat_Edittext=(EditText) findViewById(R.id.businessRegister_passwordRepeat_Edittext);
-        businessRegister_phoneNumber_Edittext= (EditText) findViewById(R.id.businessRegister_phoneNumber_Edittext);
-        progressDialog1= new ProgressDialog(this);
+        businessRegister_id_Edittext = findViewById(R.id.businessRegister_id_Edittext);
+        businessRegister_mail_Edittext = findViewById(R.id.businessRegister_mail_Edittext);
+        businessRegister_password_Edittext = findViewById(R.id.businessRegister_password_Edittext);
+        businessRegister_Button = findViewById(R.id.businessRegister_Button);
+        businessRegister_passwordRepeat_Edittext = findViewById(R.id.businessRegister_passwordRepeat_Edittext);
+        businessRegister_phoneNumber_Edittext = findViewById(R.id.businessRegister_phoneNumber_Edittext);
+        progressDialog1 = new ProgressDialog(this);
 
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         businessRegister_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-             String posta = businessRegister_mail_Edittext.getText().toString();
-             String sifre = businessRegister_password_Edittext.getText().toString();
-             String kullaniciAdi = businessRegister_id_Edittext.getText().toString();
-             String sifreTekrar = businessRegister_passwordRepeat_Edittext.getText().toString();
-             String telNo = businessRegister_phoneNumber_Edittext.getText().toString();
-             String puan="0";
-             String adres="Not given";
+                String posta = businessRegister_mail_Edittext.getText().toString();
+                String sifre = businessRegister_password_Edittext.getText().toString();
+                String kullaniciAdi = businessRegister_id_Edittext.getText().toString();
+                String sifreTekrar = businessRegister_passwordRepeat_Edittext.getText().toString();
+                String telNo = businessRegister_phoneNumber_Edittext.getText().toString();
+                String puan = "0";
+                String adres = "Not given";
 
-                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre)&& !TextUtils.isEmpty(sifreTekrar)&& !TextUtils.isEmpty(telNo)){
-                    if (TextUtils.equals(sifre,sifreTekrar)){
-                        kayitOl(posta, sifre,kullaniciAdi,telNo,puan,adres);
+                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre) && !TextUtils.isEmpty(sifreTekrar) && !TextUtils.isEmpty(telNo)) {
+                    if (TextUtils.equals(sifre, sifreTekrar)) {
+                        kayitOl(posta, sifre, kullaniciAdi, telNo, puan, adres);
 
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Şifre tekrarını doğru girdiğinizden emin olun.", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Şifre tekrarını doğru girdiğinizden emin olun.",Toast.LENGTH_SHORT).show();
-                    }
 
-        }
-                else{
-                    Toast.makeText(getApplicationContext(),"Tüm alanları doldurmanız gerekiyor.",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Tüm alanları doldurmanız gerekiyor.", Toast.LENGTH_SHORT).show();
                 }
 
 
-
-    }
-
-    private void kayitOl(final String posta, final String sifre, final String kullaniciAdi, final String telNo, final String puan, final String adres) {
-        mAuth.createUserWithEmailAndPassword(posta,sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-              if (task.isSuccessful()){
-                  String users_Id=mAuth.getCurrentUser().getUid();
-                  database_Ref= FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
-                  HashMap<String, String> isletmeKullaniciKayit = new HashMap<>();
-                  isletmeKullaniciKayit.put("kullaniciAdi",kullaniciAdi);
-                  isletmeKullaniciKayit.put("sifre",sifre);
-                  isletmeKullaniciKayit.put("telNo",telNo);
-                  isletmeKullaniciKayit.put("ePosta",posta);
-                  isletmeKullaniciKayit.put("adres",adres);
-                  isletmeKullaniciKayit.put("puan",puan);
-                  isletmeKullaniciKayit.put("kullaniciTuru", "isletme");
-
-                  progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
-                  progressDialog1.setMessage("Lütfen bekleyin...");
-                  progressDialog1.setCanceledOnTouchOutside(false);
-                  progressDialog1.show();
-
-
-                  database_Ref.setValue(isletmeKullaniciKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
-                      @Override
-                      public void onComplete(@NonNull Task<Void> task) {
-                          if (task.isSuccessful()){
-                              Intent kayitTamamlandi = new Intent(businessRegisterActivity.this, loginActivity.class);
-                              progressDialog1.dismiss();
-                              startActivity(kayitTamamlandi);
-
-                          }
-
-                      }
-                  });
-
-
-
-              }
-              else
-              {
-
-                  Toast.makeText(getApplicationContext(),"hata"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-              }
-
             }
+
+            private void kayitOl(final String posta, final String sifre, final String kullaniciAdi, final String telNo, final String puan, final String adres) {
+                mAuth.createUserWithEmailAndPassword(posta, sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+
+                        if (task.isSuccessful()) {
+                            String users_Id = mAuth.getCurrentUser().getUid();
+                            database_Ref = FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
+                            HashMap<String, String> isletmeKullaniciKayit = new HashMap<>();
+                            isletmeKullaniciKayit.put("kullaniciAdi", kullaniciAdi);
+                            isletmeKullaniciKayit.put("sifre", sifre);
+                            isletmeKullaniciKayit.put("telNo", telNo);
+                            isletmeKullaniciKayit.put("ePosta", posta);
+                            isletmeKullaniciKayit.put("adres", adres);
+                            isletmeKullaniciKayit.put("puan", puan);
+                            isletmeKullaniciKayit.put("kullaniciTuru", "isletme");
+
+                            progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
+                            progressDialog1.setMessage("Lütfen bekleyin...");
+                            progressDialog1.setCanceledOnTouchOutside(false);
+                            progressDialog1.show();
+
+
+                            database_Ref.setValue(isletmeKullaniciKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent kayitTamamlandi = new Intent(businessRegisterActivity.this, loginActivity.class);
+                                        progressDialog1.dismiss();
+                                        startActivity(kayitTamamlandi);
+
+                                    }
+
+                                }
+                            });
+
+
+                        } else {
+
+                            Toast.makeText(getApplicationContext(), "hata" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+            }
+
+
         });
-    }
-
-
-});
 
     }
 }

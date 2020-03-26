@@ -13,14 +13,13 @@ public class MainActivity extends AppCompatActivity {
     public Button kayitOlButonu;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        kayitOlButonu = (Button) findViewById(R.id.register_Button);
+        kayitOlButonu = findViewById(R.id.register_Button);
         kayitOlButonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        girisYapButonu= (Button)findViewById(R.id.login_Button);
+        girisYapButonu = findViewById(R.id.login_Button);
         girisYapButonu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void girisYapYonlendir(){
+
+    public void girisYapYonlendir() {
         Intent girisEkraniYonlendir = new Intent(this, loginActivity.class);
         startActivity(girisEkraniYonlendir);
     }
 
-    public void kayitOlYonlendir(){
+    public void kayitOlYonlendir() {
         Intent kayitEkraniYonlendir = new Intent(this, registerButtonsActivity.class);
         startActivity(kayitEkraniYonlendir);
     }

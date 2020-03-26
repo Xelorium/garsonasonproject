@@ -37,13 +37,13 @@ public class customerRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_register);
-        customerRegister_Button=(Button) findViewById(R.id.customerRegister_Button);
-        customerRegister_id_Edittext=(EditText) findViewById(R.id.customerRegister_id_Edittext);
-        customerRegister_mail_Edittext=(EditText) findViewById(R.id.customerRegister_mail_Edittext);
-        customerRegister_password_Edittext=(EditText) findViewById(R.id.customerRegister_password_Edittext);
-        customerRegister_passwordRepeat_Edittext=(EditText) findViewById(R.id.customerRegister_passwordRepeat_Edittext);
-        customerRegister_phoneNumber_Edittext=(EditText) findViewById(R.id.customerRegister_phoneNumber_Edittext);
-        progressDialog1= new ProgressDialog(this);
+        customerRegister_Button = findViewById(R.id.customerRegister_Button);
+        customerRegister_id_Edittext = findViewById(R.id.customerRegister_id_Edittext);
+        customerRegister_mail_Edittext = findViewById(R.id.customerRegister_mail_Edittext);
+        customerRegister_password_Edittext = findViewById(R.id.customerRegister_password_Edittext);
+        customerRegister_passwordRepeat_Edittext = findViewById(R.id.customerRegister_passwordRepeat_Edittext);
+        customerRegister_phoneNumber_Edittext = findViewById(R.id.customerRegister_phoneNumber_Edittext);
+        progressDialog1 = new ProgressDialog(this);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -52,26 +52,23 @@ public class customerRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 String posta = customerRegister_mail_Edittext.getText().toString();
                 String sifre = customerRegister_password_Edittext.getText().toString();
                 String kullaniciAdi = customerRegister_id_Edittext.getText().toString();
                 String sifreTekrar = customerRegister_passwordRepeat_Edittext.getText().toString();
-                String telNo =customerRegister_phoneNumber_Edittext.getText().toString();
+                String telNo = customerRegister_phoneNumber_Edittext.getText().toString();
 
-                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre)&& !TextUtils.isEmpty(sifreTekrar)&& !TextUtils.isEmpty(telNo)){
-                    if (TextUtils.equals(sifre,sifreTekrar)){
-                        kayitOl(posta, sifre,kullaniciAdi,telNo);
+                if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre) && !TextUtils.isEmpty(sifreTekrar) && !TextUtils.isEmpty(telNo)) {
+                    if (TextUtils.equals(sifre, sifreTekrar)) {
+                        kayitOl(posta, sifre, kullaniciAdi, telNo);
 
 
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Şifre tekrarını doğru girdiğinizden emin olun.", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Şifre tekrarını doğru girdiğinizden emin olun.",Toast.LENGTH_SHORT).show();
-                    }
 
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Tüm alanları doldurmanız gerekiyor.",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Tüm alanları doldurmanız gerekiyor.", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -80,19 +77,19 @@ public class customerRegisterActivity extends AppCompatActivity {
     }
 
     private void kayitOl(final String posta, final String sifre, final String kullaniciAdi, final String telNo) {
-        mAuth.createUserWithEmailAndPassword(posta,sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(posta, sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                    String users_Id=mAuth.getCurrentUser().getUid();
-                    database_Ref= FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
+                    String users_Id = mAuth.getCurrentUser().getUid();
+                    database_Ref = FirebaseDatabase.getInstance().getReference().child("tbl_kullanicilar").child(users_Id);
                     HashMap<String, String> musteriKullaniciKayit = new HashMap<>();
-                    musteriKullaniciKayit.put("kullaniciAdi",kullaniciAdi);
-                    musteriKullaniciKayit.put("sifre",sifre);
-                    musteriKullaniciKayit.put("telNo",telNo);
-                    musteriKullaniciKayit.put("ePosta",posta);
+                    musteriKullaniciKayit.put("kullaniciAdi", kullaniciAdi);
+                    musteriKullaniciKayit.put("sifre", sifre);
+                    musteriKullaniciKayit.put("telNo", telNo);
+                    musteriKullaniciKayit.put("ePosta", posta);
                     musteriKullaniciKayit.put("kullaniciTuru", "musteri");
 
                     progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
@@ -101,11 +98,10 @@ public class customerRegisterActivity extends AppCompatActivity {
                     progressDialog1.show();
 
 
-
                     database_Ref.setValue(musteriKullaniciKayit).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Intent kayitTamamlandi = new Intent(customerRegisterActivity.this, loginActivity.class);
                                 progressDialog1.dismiss();
                                 startActivity(kayitTamamlandi);
@@ -113,11 +109,9 @@ public class customerRegisterActivity extends AppCompatActivity {
                         }
                     });
 
-                }
-                else
-                {
+                } else {
 
-                    Toast.makeText(getApplicationContext(),"Hata var!"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Hata var!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

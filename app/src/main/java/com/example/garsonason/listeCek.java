@@ -29,19 +29,19 @@ public class listeCek extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        arrayList  =new ArrayList<>();
-        urunListele_ListView = (ListView) findViewById(R.id.urunleriListele_ListView);
-        arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,android.R.id.text1,arrayList);
+        arrayList = new ArrayList<>();
+        urunListele_ListView = findViewById(R.id.urunleriListele_ListView);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Isletme_Urunler_Bilgi");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot ds:dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     dataSnapshot.getKey();
                     customerProductAdapter model = ds.getValue(customerProductAdapter.class);
-                    arrayList.add("Ürün Adı: "+model.geturunAdi()+"\n"+"Ürün Türü: "+model.geturunTipi()+"\n"+"Ürün Fiyatı: "+model.geturunFiyat()+"TL");
+                    arrayList.add("Ürün Adı: " + model.geturunAdi() + "\n" + "Ürün Türü: " + model.geturunTipi() + "\n" + "Ürün Fiyatı: " + model.geturunFiyat() + "TL");
 
                     urunListele_ListView.setAdapter(arrayAdapter);
                 }

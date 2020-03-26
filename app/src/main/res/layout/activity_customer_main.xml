@@ -17,15 +17,6 @@
         android:text="Ayarlar" />
 
 
-    <Button
-        android:id="@+id/businessMain_addProduct_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:text="Ürün Ekle"
-        android:textSize="25dp" />
-
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -34,17 +25,33 @@
         android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
+
         <FrameLayout
-            android:id="@+id/businessMain_Frame"
+            android:id="@+id/customerMain_Frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/intent_Button"
-            android:text="Listele" />
+            android:text="İşletme Kodunu Girin:"
+            android:textSize="25dp"
+            android:layout_gravity="center"/>
+
+        <EditText
+            android:id="@+id/idBusiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="İşletme Kodu"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/codeSubmit_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
 
         <Button
             android:id="@+id/support_Button"

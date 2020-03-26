@@ -23,8 +23,8 @@ public class forgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        passwordResetButton=(Button) findViewById(R.id.passwordReset_Button);
-        passwordResetEdittext=(EditText) findViewById(R.id.passwordReset_email_Edittext);
+        passwordResetButton = findViewById(R.id.passwordReset_Button);
+        passwordResetEdittext = findViewById(R.id.passwordReset_email_Edittext);
         mAuth = FirebaseAuth.getInstance();
 
         passwordResetButton.setOnClickListener(new View.OnClickListener() {
@@ -35,11 +35,10 @@ public class forgotPasswordActivity extends AppCompatActivity {
                 mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Şifre sıfırlama talebiniz e-postanıza gönderilmiştir.",Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Geçersiz e-posta adresi",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Şifre sıfırlama talebiniz e-postanıza gönderilmiştir.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Geçersiz e-posta adresi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

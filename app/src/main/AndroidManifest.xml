@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".listeCek"></activity>
+        <activity android:name=".customerMainActivity"></activity>
+        <activity android:name=".listeCek" />
         <activity android:name=".businessAddProductActivity" />
         <activity android:name=".forgotPasswordActivity" />
         <activity android:name=".businessMainActivity" />

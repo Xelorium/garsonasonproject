@@ -10,14 +10,14 @@ public class keepData {
     private String telNo;
 
 
-    public keepData(){
+    public keepData() {
 
     }
 
-    public keepData(String adres, String ePosta, String kullaniciAdi, String kullaniciTuru, String puan, String sifre, String telNo){
+    public keepData(String adres, String ePosta, String kullaniciAdi, String kullaniciTuru, String puan, String sifre, String telNo) {
 
-        this.adres= adres;
-        this.ePosta= ePosta;
+        this.adres = adres;
+        this.ePosta = ePosta;
         this.kullaniciAdi = kullaniciAdi;
         this.kullaniciTuru = kullaniciTuru;
         this.puan = puan;
@@ -25,26 +25,32 @@ public class keepData {
         this.telNo = telNo;
     }
 
-    public String getAdres(){
+    public String getAdres() {
         return adres;
 
     }
-    public String getePosta(){
+
+    public String getePosta() {
         return ePosta;
     }
-    public String getKullaniciAdi(){
+
+    public String getKullaniciAdi() {
         return kullaniciAdi;
     }
-    public String getKullaniciTuru(){
+
+    public String getKullaniciTuru() {
         return kullaniciTuru;
     }
-    public String getPuan(){
+
+    public String getPuan() {
         return puan;
     }
-    public String getSifre(){
+
+    public String getSifre() {
         return sifre;
     }
-    public String getTelNo(){
+
+    public String getTelNo() {
         return telNo;
     }
 
