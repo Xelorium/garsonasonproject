@@ -56,8 +56,7 @@ public class loginActivity extends AppCompatActivity {
 
                     login_user(kullaniciAdi, kullaniciSifre);
 
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Eksik veya yanlış girdi. ", Toast.LENGTH_LONG).show();
                 }
             }
@@ -79,7 +78,7 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    String id = mAuth.getCurrentUser().getUid();
+                    final String id = mAuth.getCurrentUser().getUid();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     DatabaseReference myRef2 = database.getReference().child("tbl_kullanicilar").child(id);
@@ -96,6 +95,7 @@ public class loginActivity extends AppCompatActivity {
                                 progressDialog1.setCanceledOnTouchOutside(false);
                                 progressDialog1.show();
                                 Intent intent = new Intent(loginActivity.this, businessMainActivity.class);
+                                intent.putExtra("id", id);
                                 progressDialog1.dismiss();
                                 startActivity(intent);
 
@@ -119,9 +119,7 @@ public class loginActivity extends AppCompatActivity {
                         }
                     });
 
-                }
-
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Eksik veya yanlış girdi. " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }

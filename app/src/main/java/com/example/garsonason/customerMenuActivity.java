@@ -16,36 +16,36 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class listeCek extends AppCompatActivity {
+public class customerMenuActivity extends AppCompatActivity {
 
-    private ListView urunListele_ListView;
+    private ListView urunleriListele_Musteri_ListView;
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-
+    private DatabaseReference database_Ref;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
+        setContentView(R.layout.activity_customer_menu);
         arrayList = new ArrayList<>();
-        urunListele_ListView = findViewById(R.id.urunleriListele_ListView);
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
+
+        urunleriListele_Musteri_ListView = findViewById(R.id.urunleriListele_Musteri_ListView);
+        mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String isletmeId = getIntent().getExtras().getString("id2");
-        System.out.println(isletmeId);
+        String isletmeId = getIntent().getExtras().getString("isId");
         DatabaseReference myRef = database.getReference().child("Isletme_Urunler_Bilgi").child(isletmeId);
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     dataSnapshot.getKey();
                     customerProductAdapter model = ds.getValue(customerProductAdapter.class);
                     arrayList.add("Ürün Adı: " + model.geturunAdi() + "\n" + "Ürün Türü: " + model.geturunTipi() + "\n" + "Ürün Fiyatı: " + model.geturunFiyat() + "TL");
 
-                    urunListele_ListView.setAdapter(arrayAdapter);
+                    urunleriListele_Musteri_ListView.setAdapter(arrayAdapter);
                 }
             }
 
@@ -54,5 +54,7 @@ public class listeCek extends AppCompatActivity {
 
             }
         });
+
+
     }
 }

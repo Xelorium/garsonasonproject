@@ -57,21 +57,7 @@ public class businessAddProductActivity extends Fragment {
             @Override
             public void onClick(View v) {
 
-                EditText businessAddProduct_Name_Edittext = getView().findViewById(R.id.businessAddProduct_Name_Edittext);
-                EditText businessAddProduct_Type_Edittext = getView().findViewById(R.id.businessAddProduct_Type_Edittext);
-                EditText businessAddProduct_Cost_Edittext = getView().findViewById(R.id.businessAddProduct_Cost_Edittext);
-                String urunAdi = businessAddProduct_Name_Edittext.getText().toString();
-                String urunTipi = businessAddProduct_Type_Edittext.getText().toString();
-                String urunFiyati = businessAddProduct_Cost_Edittext.getText().toString();
-                String date = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
 
-
-                if (!TextUtils.isEmpty(urunAdi) && !TextUtils.isEmpty(urunTipi) && !TextUtils.isEmpty(urunFiyati)) {
-                    urunEkle(urunAdi, urunTipi, urunFiyati, date);
-
-                } else {
-                    Toast.makeText(getContext(), "Tüm alanları doldurmanız gerekiyor.", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -79,8 +65,8 @@ public class businessAddProductActivity extends Fragment {
 
     private void urunEkle(String urunAdi, String urunTipi, String urunFiyati, String date) {
 
-
-        database_Ref = FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi").push();
+        final String isletmeId = getArguments().getString("id");
+        database_Ref = FirebaseDatabase.getInstance().getReference().child("Isletme_Urunler_Bilgi").child(isletmeId).push();
         HashMap<String, String> isletmeUrunKayit = new HashMap<>();
         isletmeUrunKayit.put("urunAdi", urunAdi);
         isletmeUrunKayit.put("urunTipi", urunTipi);

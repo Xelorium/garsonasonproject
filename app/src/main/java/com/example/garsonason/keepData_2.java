@@ -1,6 +1,7 @@
 package com.example.garsonason;
 
-public class keepData {
+public class keepData_2 {
+
     private String adres;
     private String ePosta;
     private String kullaniciAdi;
@@ -11,11 +12,11 @@ public class keepData {
     private String isletmeKodu;
 
 
-    public keepData() {
+    public keepData_2() {
 
     }
 
-    public keepData(String adres, String ePosta, String kullaniciAdi, String kullaniciTuru, String puan, String sifre, String telNo, String isletmeKodu) {
+    public keepData_2(String adres, String ePosta, String kullaniciAdi, String kullaniciTuru, String puan, String sifre, String telNo, String isletmeKodu) {
 
         this.adres = adres;
         this.ePosta = ePosta;
@@ -59,5 +60,4 @@ public class keepData {
     public String getIsletmeKodu() {
         return isletmeKodu;
     }
-
 }

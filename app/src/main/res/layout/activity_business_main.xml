@@ -17,15 +17,6 @@
         android:text="Ayarlar" />
 
 
-    <Button
-        android:id="@+id/businessMain_addProduct_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:text="Ürün Ekle"
-        android:textSize="25dp" />
-
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -34,11 +25,64 @@
         android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/businessMain_Frame"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Ürün Ekle"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+        <EditText
+
+            android:id="@+id/businessAddProduct_Name_Edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:capitalize="words"
+            android:hint="Ürün Adı"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/businessAddProduct_Type_Edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:capitalize="words"
+            android:hint="Türü"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/businessAddProduct_Cost_Edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:hint="Fiyat"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/businessAddProduct_Add_Button"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:layout_weight="0.5"
+            android:text="Ekle"
+            android:textSize="25dp" />
 
         <Button
             android:layout_width="wrap_content"

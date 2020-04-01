@@ -92,6 +92,7 @@ public class businessRegisterActivity extends AppCompatActivity {
                             isletmeKullaniciKayit.put("adres", adres);
                             isletmeKullaniciKayit.put("puan", puan);
                             isletmeKullaniciKayit.put("kullaniciTuru", "isletme");
+                            isletmeKullaniciKayit.put("isletmeKodu", users_Id);
 
                             progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
                             progressDialog1.setMessage("Lütfen bekleyin...");
