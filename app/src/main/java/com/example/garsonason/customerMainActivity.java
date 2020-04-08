@@ -1,13 +1,13 @@
 package com.example.garsonason;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +24,8 @@ public class customerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_main);
-
+        final String musteriId = getIntent().getExtras().getString("id2");
+        System.out.println(musteriId);
         idBusiness = findViewById(R.id.idBusiness);
         codeSubmit_Button = findViewById(R.id.codeSubmit_Button);
 
@@ -48,6 +49,7 @@ public class customerMainActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(customerMainActivity.this, customerMenuActivity.class);
                                 intent.putExtra("isId", model.getIsletmeKodu());
+                                intent.putExtra("musId", musteriId);
                                 startActivity(intent);
 
                             }

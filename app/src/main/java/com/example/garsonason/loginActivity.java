@@ -1,8 +1,5 @@
 package com.example.garsonason;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,8 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.EventListener;
 
 public class loginActivity extends AppCompatActivity {
 
@@ -82,6 +80,10 @@ public class loginActivity extends AppCompatActivity {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     DatabaseReference myRef2 = database.getReference().child("tbl_kullanicilar").child(id);
+                    progressDialog1.setTitle("Giriş Yapılıyor");
+                    progressDialog1.setMessage("Lütfen bekleyin...");
+                    progressDialog1.setCanceledOnTouchOutside(false);
+                    progressDialog1.show();
                     myRef2.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,10 +92,7 @@ public class loginActivity extends AppCompatActivity {
 
                             if (model.getKullaniciTuru().equals("isletme")) {
 
-                                progressDialog1.setTitle("Giriş Yapılıyor");
-                                progressDialog1.setMessage("Lütfen bekleyin...");
-                                progressDialog1.setCanceledOnTouchOutside(false);
-                                progressDialog1.show();
+
                                 Intent intent = new Intent(loginActivity.this, businessMainActivity.class);
                                 intent.putExtra("id", id);
                                 progressDialog1.dismiss();
@@ -101,12 +100,9 @@ public class loginActivity extends AppCompatActivity {
 
                             } else if (model.getKullaniciTuru().equals("musteri")) {
 
-                                progressDialog1.setTitle("Giriş Yapılıyor");
-                                progressDialog1.setMessage("Lütfen bekleyin...");
-                                progressDialog1.setCanceledOnTouchOutside(false);
-                                progressDialog1.show();
                                 Intent intent2 = new Intent(loginActivity.this, customerMainActivity.class);
                                 progressDialog1.dismiss();
+                                intent2.putExtra("id2", id);
                                 startActivity(intent2);
                             }
 

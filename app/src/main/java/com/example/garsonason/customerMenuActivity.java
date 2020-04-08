@@ -1,11 +1,15 @@
 package com.example.garsonason;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -14,7 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class customerMenuActivity extends AppCompatActivity {
 
@@ -23,27 +31,42 @@ public class customerMenuActivity extends AppCompatActivity {
     private DatabaseReference database_Ref;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> arrayList;
+    private ArrayList<String> arrayList2;
+    private ArrayList<urunModel> sepet;
+    private urunModel urunmodel;
+    private Button siparisVer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_menu);
         arrayList = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
+        arrayList2 = new ArrayList<>();
+        siparisVer=findViewById(R.id.siparisVer);
+        sepet = new ArrayList<urunModel>();
 
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
+        final String musteriId = getIntent().getExtras().getString("musId");
         urunleriListele_Musteri_ListView = findViewById(R.id.urunleriListele_Musteri_ListView);
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String isletmeId = getIntent().getExtras().getString("isId");
+        final String isletmeId = getIntent().getExtras().getString("isId");
+        System.out.println(isletmeId);
+        System.out.println(musteriId);
+
+
         DatabaseReference myRef = database.getReference().child("Isletme_Urunler_Bilgi").child(isletmeId);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    dataSnapshot.getKey();
+                    String a = ds.getKey();
                     customerProductAdapter model = ds.getValue(customerProductAdapter.class);
+
                     arrayList.add("Ürün Adı: " + model.geturunAdi() + "\n" + "Ürün Türü: " + model.geturunTipi() + "\n" + "Ürün Fiyatı: " + model.geturunFiyat() + "TL");
+                    arrayList2.add(a);
 
                     urunleriListele_Musteri_ListView.setAdapter(arrayAdapter);
                 }
@@ -54,6 +77,43 @@ public class customerMenuActivity extends AppCompatActivity {
 
             }
         });
+        urunleriListele_Musteri_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String date = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
+                HashMap<String, String> siparisListesi = new HashMap<>();
+                siparisListesi.put("siparis", arrayList2.get(position));
+                siparisListesi.put("durum", "beklemede");
+                siparisListesi.put("tarih", date);
+
+
+                //database_Ref.setValue(siparisListesi);
+
+                /*String deneme=arrayList.get(position);
+                Toast.makeText(getApplicationContext(), deneme, Toast.LENGTH_SHORT).show();*/
+
+                urunmodel = new urunModel();
+                urunmodel.urunAdi=arrayList2.get(position);
+
+                sepet.add(urunmodel);
+
+
+
+            }
+        });
+
+
+       siparisVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database_Ref = FirebaseDatabase.getInstance().getReference().child("Isletme_Siparisler").child(isletmeId).child(musteriId).child("sepet").push();
+
+                database_Ref.setValue(sepet);
+                sepet.clear();
+
+            }
+        });
+
 
 
     }

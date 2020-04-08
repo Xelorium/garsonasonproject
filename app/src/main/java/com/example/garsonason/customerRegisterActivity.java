@@ -1,8 +1,5 @@
 package com.example.garsonason;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,10 +57,12 @@ public class customerRegisterActivity extends AppCompatActivity {
                 String kullaniciAdi = customerRegister_id_Edittext.getText().toString();
                 String sifreTekrar = customerRegister_passwordRepeat_Edittext.getText().toString();
                 String telNo = customerRegister_phoneNumber_Edittext.getText().toString();
+                String puan = "n/a";
+                String adres = "n/a";
 
                 if (!TextUtils.isEmpty(posta) && !TextUtils.isEmpty(sifre) && !TextUtils.isEmpty(sifreTekrar) && !TextUtils.isEmpty(telNo)) {
                     if (TextUtils.equals(sifre, sifreTekrar)) {
-                        kayitOl(posta, sifre, kullaniciAdi, telNo);
+                        kayitOl(posta, sifre, kullaniciAdi, telNo, puan, adres);
 
 
                     } else {
@@ -76,7 +78,7 @@ public class customerRegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void kayitOl(final String posta, final String sifre, final String kullaniciAdi, final String telNo) {
+    private void kayitOl(final String posta, final String sifre, final String kullaniciAdi, final String telNo, final String puan, final String adres) {
         mAuth.createUserWithEmailAndPassword(posta, sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -90,7 +92,10 @@ public class customerRegisterActivity extends AppCompatActivity {
                     musteriKullaniciKayit.put("sifre", sifre);
                     musteriKullaniciKayit.put("telNo", telNo);
                     musteriKullaniciKayit.put("ePosta", posta);
+                    musteriKullaniciKayit.put("adres", adres);
+                    musteriKullaniciKayit.put("puan", puan);
                     musteriKullaniciKayit.put("kullaniciTuru", "musteri");
+                    musteriKullaniciKayit.put("isletmeKodu", "n/a");
 
                     progressDialog1.setTitle("Kayıt İşlemi Tamamlanıyor");
                     progressDialog1.setMessage("Lütfen bekleyin...");
@@ -104,6 +109,7 @@ public class customerRegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Intent kayitTamamlandi = new Intent(customerRegisterActivity.this, loginActivity.class);
                                 progressDialog1.dismiss();
+                                Toast.makeText(getApplicationContext(), "Kayıt işlemi başarıyla tamamlandı!", Toast.LENGTH_SHORT).show();
                                 startActivity(kayitTamamlandi);
                             }
                         }
