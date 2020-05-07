@@ -44,7 +44,7 @@ public class customerMenuActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
         siparisVer=findViewById(R.id.siparisVer);
-        sepet = new ArrayList<urunModel>();
+      //  sepet = new ArrayList<urunModel>();
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
         final String musteriId = getIntent().getExtras().getString("musId");
@@ -56,7 +56,7 @@ public class customerMenuActivity extends AppCompatActivity {
         System.out.println(musteriId);
 
 
-        DatabaseReference myRef = database.getReference().child("Isletme_Urunler_Bilgi").child(isletmeId);
+        final DatabaseReference myRef = database.getReference().child("Isletme_Urunler_Bilgi").child(isletmeId);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,25 +77,51 @@ public class customerMenuActivity extends AppCompatActivity {
 
             }
         });
+        final HashMap<String, String> siparisListesi = new HashMap<>();
         urunleriListele_Musteri_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String date = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
-                HashMap<String, String> siparisListesi = new HashMap<>();
-                siparisListesi.put("siparis", arrayList2.get(position));
-                siparisListesi.put("durum", "beklemede");
-                siparisListesi.put("tarih", date);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                System.out.println(arrayList2.get(position));
+
+                database_Ref = FirebaseDatabase.getInstance().getReference().child("Isletme_Siparisler").child(isletmeId).child(musteriId).child("sepet").child(arrayList2.get(position));
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String a = ds.getKey();
+                            customerProductAdapter model = ds.getValue(customerProductAdapter.class);
+                            String date = new SimpleDateFormat("HH:mm dd/MM/yyyy").format(new Date());
+
+                            if(a.equals(arrayList2.get(position))){
+
+                                System.out.println(arrayList2.get(position));
+                                System.out.println(a);
+
+                                siparisListesi.put("UrunAdi", model.geturunAdi());
+                                siparisListesi.put("Adet", "5");
+                                siparisListesi.put("Durum", "beklemede");
+                                siparisListesi.put("Tarih", date);
+                                database_Ref.setValue(siparisListesi);
+                            }
 
 
-                //database_Ref.setValue(siparisListesi);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
 
                 /*String deneme=arrayList.get(position);
                 Toast.makeText(getApplicationContext(), deneme, Toast.LENGTH_SHORT).show();*/
 
-                urunmodel = new urunModel();
-                urunmodel.urunAdi=arrayList2.get(position);
-
-                sepet.add(urunmodel);
 
 
 
@@ -106,9 +132,9 @@ public class customerMenuActivity extends AppCompatActivity {
        siparisVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database_Ref = FirebaseDatabase.getInstance().getReference().child("Isletme_Siparisler").child(isletmeId).child(musteriId).child("sepet").push();
 
-                database_Ref.setValue(sepet);
+
+
                 sepet.clear();
 
             }
