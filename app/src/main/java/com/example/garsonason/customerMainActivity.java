@@ -33,7 +33,7 @@ public class customerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String kod = idBusiness.getText().toString();
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef2 = database.getReference().child("tbl_kullanicilar");
                 myRef2.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -45,6 +45,7 @@ public class customerMainActivity extends AppCompatActivity {
                             dataSnapshot.getKey();
                             keepData model = ds.getValue(keepData.class);
                             System.out.println(model.getAdres());
+
                             if (model.getIsletmeKodu().equals(kod)) {
 
                                 Intent intent = new Intent(customerMainActivity.this, customerMenuActivity.class);

@@ -27,11 +27,13 @@ import java.util.UUID;
 public class customerMenuActivity extends AppCompatActivity {
 
     private ListView urunleriListele_Musteri_ListView;
+    private ListView custom1_listview;
     private FirebaseAuth mAuth;
     private DatabaseReference database_Ref;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> arrayList;
     private ArrayList<String> arrayList2;
+    private ArrayList<customerProductAdapter> orders;
     private ArrayList<urunModel> sepet;
     private urunModel urunmodel;
     private Button siparisVer;
@@ -46,9 +48,11 @@ public class customerMenuActivity extends AppCompatActivity {
         siparisVer=findViewById(R.id.siparisVer);
       //  sepet = new ArrayList<urunModel>();
 
+
+
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, arrayList);
         final String musteriId = getIntent().getExtras().getString("musId");
-        urunleriListele_Musteri_ListView = findViewById(R.id.urunleriListele_Musteri_ListView);
+        urunleriListele_Musteri_ListView = (ListView)findViewById(R.id.urunleriListele_Musteri_ListView);
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String isletmeId = getIntent().getExtras().getString("isId");
@@ -103,8 +107,6 @@ public class customerMenuActivity extends AppCompatActivity {
                                 siparisListesi.put("Tarih", date);
                                 database_Ref.setValue(siparisListesi);
                             }
-
-
                         }
                     }
 
@@ -113,34 +115,16 @@ public class customerMenuActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
-
                 /*String deneme=arrayList.get(position);
                 Toast.makeText(getApplicationContext(), deneme, Toast.LENGTH_SHORT).show();*/
-
-
-
-
             }
         });
-
-
        siparisVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 sepet.clear();
 
             }
         });
-
-
-
     }
 }
